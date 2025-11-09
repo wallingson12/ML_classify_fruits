@@ -1,0 +1,4 @@
+Modelo,Acurácia Val (%),F1 Macro,Tempo Treino (s)
+MobileNetV2,30.73,0.2986,36.8
+MobileNetV3Small,61.56,0.6251,16.46
+MobileNetV3Large,67.02,0.6803,55.97
