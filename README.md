@@ -38,7 +38,7 @@ A CNN implementada possui:
 
 ### 5. Treinamento Inicial
 O primeiro treinamento registrou:
-- **Acurácia de validação máxima: ~47.9%**
+- **Acurácia de validação máxima: 47.9%**
 
 ### 6. Data Augmentation Offline
 Foram criadas imagens extras fisicamente no disco, aumentando a diversidade real do dataset:
@@ -52,7 +52,7 @@ Técnicas usadas:
 ### 7. Novo Treinamento
 Após o aumento de dados:
 - o modelo foi treinado novamente  
-- as métricas melhoraram  
+- as métricas melhoraram **93%**
 - foram gerados gráficos de acurácia e loss  
 
 ### 8. Visualização de Métricas
