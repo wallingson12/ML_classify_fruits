@@ -73,8 +73,7 @@ Inclui:
 - pathlib / os / shutil  
 
 ### API
-- FastAPI  
-- Uvicorn  
+- FastAPI    
 - TensorFlow (inference)  
 - NumPy  
 - Pillow  
