@@ -52,7 +52,7 @@ Técnicas usadas:
 ### 7. Novo Treinamento
 Após o aumento de dados:
 - o modelo foi treinado novamente  
-- as métricas melhoraram **93%**
+- as métricas melhoraram para **93%**
 - foram gerados gráficos de acurácia e loss  
 
 ### 8. Visualização de Métricas
