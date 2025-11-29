@@ -1,68 +1,106 @@
-# Classificador de Frutas com CNN 🍎🍌🍊  
-Este projeto implementa um classificador de imagens de frutas utilizando **Redes Neurais Convolucionais (CNN)**.  
-O notebook `Classify product.ipynb` conduz todo o processo: preparação dos dados, padronização das classes, aumento de dados (data augmentation), treinamento do modelo e exportação final (`modelo_frutas.h5`).
+# 🍎🍌🍊 Classificador de Frutas com CNN  
 
-Além disso, o repositório inclui uma **API FastAPI** capaz de receber imagens, processá-las e retornar a fruta prevista pela CNN.
+Este projeto implementa um **classificador de imagens de frutas** utilizando **Redes Neurais Convolucionais (CNN)**.  
+O notebook `Classify product.ipynb` conduz todo o fluxo completo:  
+- preparação e padronização do dataset  
+- aumento de dados (data augmentation)  
+- geração de variações no disco  
+- treinamento do modelo  
+- exportação final (`modelo_frutas.h5`)
+
+Além disso, o repositório inclui uma **API FastAPI** capaz de receber imagens, processá-las e retornar a fruta prevista pelo modelo treinado.
 
 ---
 
 ## 📌 Objetivo
-Treinar e servir um modelo de deep learning capaz de classificar imagens de frutas usando um dataset público do Kaggle.
+Treinar e servir um modelo de deep learning capaz de **classificar imagens de frutas** usando um dataset público do Kaggle, aplicando boas práticas de preparação de dados e implantação.
 
 ---
 
-## 🧠 O que o Notebook Faz
+# 🧠 O que o Notebook Faz
 
-### 1. Download Automático do Dataset (Kaggle)
-O notebook baixa o dataset direto da plataforma Kaggle usando a API oficial e organiza os arquivos automaticamente.
+## 1. Download Automático do Dataset (Kaggle)
+O notebook utiliza a API oficial do Kaggle para:
+- baixar o dataset  
+- extrair os arquivos  
+- organizar automaticamente a estrutura de diretórios  
 
-### 2. Padronização dos Nomes das Classes
-Correções aplicadas:
+---
+
+## 2. Padronização dos Nomes das Classes
+O dataset original possui variações e inconsistências.  
+O notebook realiza:
+
 - remoção de acentos  
-- nomes uniformes  
+- uniformização de nomes  
 - eliminação de duplicidades  
-- ajuste de maiúsculas/minúsculas  
+- normalização de maiúsculas/minúsculas  
+- correções estruturais em pastas  
 
-### 3. Verificação das Classes
-Após a padronização o notebook:
+---
+
+## 3. Verificação das Classes
+Após a padronização, o notebook:
+
 - revalida o diretório de treino  
-- confirma quantidade de imagens por classe  
-- garante consistência do dataset  
+- verifica quantidade de imagens por classe  
+- confirma se não há classes faltando ou duplicadas  
+- imprime estatísticas do dataset  
 
-### 4. Construção do Modelo CNN
-A CNN implementada possui:
-- múltiplas camadas convolucionais  
-- camadas de pooling  
-- *dropout* para reduzir overfitting  
-- uma *dense layer* final softmax para classificação  
+---
 
-### 5. Treinamento Inicial
-O primeiro treinamento registrou:
-- **Acurácia de validação máxima: 47.9%**
+## 4. Construção do Modelo CNN
+A CNN contém:
 
-### 6. Data Augmentation Offline
-Foram criadas imagens extras fisicamente no disco, aumentando a diversidade real do dataset:
+- múltiplas camadas Convolution2D  
+- pooling para redução de dimensionalidade  
+- batch normalization  
+- dropout (reduz overfitting)  
+- camada densa final com Softmax  
 
-Técnicas usadas:
+---
+
+## 5. Treinamento Inicial
+Primeiro treino (sem augmentation físico no disco):
+
+- **Acurácia máxima de validação: 47.9%**
+
+---
+
+## 6. Data Augmentation Offline
+Para aumentar o dataset, foram geradas **novas imagens fisicamente no disco**, aumentando a diversidade real.
+
+Técnicas aplicadas:
 - rotação  
 - zoom  
 - deslocamento  
 - flip horizontal  
+- efeitos de transformação moderados  
 
-### 7. Novo Treinamento
-Após o aumento de dados:
+---
+
+## 7. Novo Treinamento (Após Augmentation)
+Com o dataset expandido:
+
 - o modelo foi treinado novamente  
-- as métricas melhoraram para **93%**
-- foram gerados gráficos de acurácia e loss  
+- as métricas melhoraram significativamente  
+- **Acurácia de validação: ~93%**  
+- gráficos de loss e accuracy foram gerados  
 
-### 8. Visualização de Métricas
+---
+
+## 8. Visualização das Métricas
 Inclui:
-- gráfico da evolução da acurácia  
-- gráfico do loss  
-- comparação entre treino e validação  
 
-## 🛠️ Tecnologias Utilizadas
-### Treinamento
+- gráfico de acurácia (treino × validação)  
+- gráfico de loss (treino × validação)  
+- análise visual da evolução durante as épocas  
+
+---
+
+# 🛠️ Tecnologias Utilizadas
+
+## 🔹 Treinamento
 - Python 3  
 - TensorFlow / Keras  
 - NumPy  
@@ -72,32 +110,20 @@ Inclui:
 - OpenCV  
 - pathlib / os / shutil  
 
-### API
-- FastAPI    
+## 🔹 API
+- FastAPI  
 - TensorFlow (inference)  
 - NumPy  
 - Pillow  
 
+---
 
+# 🌐 API — Classificação de Frutas (FastAPI)
 
-# 🌐 API — Classificação de Frutas
+O arquivo **`main.py`** implementa uma API pronta para uso em produção.
 
-O arquivo **`main.py`** implementa uma API completa para servir o modelo treinado.
+## 📦 Funcionamento
 
-### 📦 Funcionamento
-
-1. Carrega o modelo:
+### 1. Carrega o modelo treinado
 ```python
 model = tf.keras.models.load_model("modelo_frutas.h5")
-
-2. Lê automaticamente as classes a partir do diretório:
-## 🧱 Estrutura Recomendada do Projeto
-train_dir = "train_variacoes"
-class_names = sorted([d for d in os.listdir(train_dir) if os.path.isdir(os.path.join(train_dir, d))])
-
-3. Possui um pré-processador para imagens:
-def preprocess_image(image_bytes, target_size=(128,128)):
-    image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-    image = image.resize(target_size)
-    image_array = np.array(image)/255.0
-    return np.expand_dims(image_array, axis=0)
