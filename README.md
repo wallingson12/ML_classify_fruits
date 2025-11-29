@@ -61,7 +61,6 @@ Inclui:
 - gráfico do loss  
 - comparação entre treino e validação  
 
----
 project/
 ├── Classify product.ipynb
 ├── modelo_frutas.h5
@@ -70,7 +69,6 @@ project/
 ├── index.html # interface web (upload + preview)
 └── README.md
 
----
 
 ## 🛠️ Tecnologias Utilizadas
 ### Treinamento
@@ -90,7 +88,7 @@ project/
 - NumPy  
 - Pillow  
 
----
+
 
 # 🌐 API — Classificação de Frutas
 
