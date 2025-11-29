@@ -61,15 +61,6 @@ Inclui:
 - gráfico do loss  
 - comparação entre treino e validação  
 
-project/
-├── Classify product.ipynb
-├── modelo_frutas.h5
-├── train_variacoes/ # pastas das frutas após augmentation offline
-├── main.py # API FastAPI
-├── index.html # interface web (upload + preview)
-└── README.md
-
-
 ## 🛠️ Tecnologias Utilizadas
 ### Treinamento
 - Python 3  
