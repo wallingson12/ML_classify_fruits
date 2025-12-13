@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Classificador de Frutas</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+    /* Fundo leve com gradiente linear */
+    background: linear-gradient(135deg, #FFEBCD, #FFB347);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+h1 {
+    margin-bottom: 30px;
+}
+
+input[type=file] {
+    margin: 20px 0;
+}
+
+#preview-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#preview {
+    max-width: 300px;
+    border-radius: 15px;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+}
+</style>
+</head>
+<body>
+<h1>Classificador de Frutas 🍎🍌🍇</h1>
+
+<input type="file" id="fileInput" accept="image/*"><br>
+<button onclick="uploadImage()">Enviar</button>
+
+<div id="preview-container">
+    <img id="preview" src="#" alt="" style="display:none;">
+</div>
+
+<div id="result"></div>
+
+<script>
+const preview = document.getElementById('preview');
+const fileInput = document.getElementById('fileInput');
+const resultDiv = document.getElementById('result');
+
+fileInput.onchange = e => {
+    const [file] = fileInput.files;
+    if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+        resultDiv.innerText = '';
+    }
+}
+
+async function uploadImage() {
+    const file = fileInput.files[0];
+    if (!file) return alert("Escolha uma imagem!");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    resultDiv.innerText = "Processando...";
+
+    try {
+        const response = await fetch("/predict", { method: "POST", body: formData });
+        const data = await response.json();
+        if (data.error) {
+            resultDiv.innerText = "Erro: " + data.error;
+        } else {
+            resultDiv.innerText = `Classe: ${data.class}`;
+        }
+    } catch (err) {
+        resultDiv.innerText = "Erro ao conectar com a API.";
+    }
+}
+</script>
+</body>
+</html>
