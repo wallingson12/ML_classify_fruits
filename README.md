@@ -6,7 +6,7 @@ O notebook `Classify product.ipynb` conduz todo o fluxo completo:
 - aumento de dados (data augmentation)  
 - geração de variações no disco  
 - treinamento do modelo  
-- exportação final (`modelo_frutas.h5`)
+- exportação final (`modelo_frutas.h5`)  
 
 Além disso, o repositório inclui uma **API FastAPI** capaz de receber imagens, processá-las e retornar a fruta prevista pelo modelo treinado.
 
@@ -14,6 +14,23 @@ Além disso, o repositório inclui uma **API FastAPI** capaz de receber imagens,
 
 ## 📌 Objetivo
 Treinar e servir um modelo de deep learning capaz de **classificar imagens de frutas** usando um dataset público do Kaggle, aplicando boas práticas de preparação de dados e implantação.
+
+---
+
+## 🍓 Classes de Frutas
+
+O modelo foi treinado com **10 classes**:
+
+- Apple  
+- Banana  
+- Avocado  
+- Cherry  
+- Kiwi  
+- Mango  
+- Orange  
+- Pineapple  
+- Strawberry  
+- Watermelon  
 
 ---
 
@@ -63,7 +80,7 @@ A CNN contém:
 ## 5. Treinamento Inicial
 Primeiro treino (sem augmentation físico no disco):
 
-- **Acurácia máxima de validação: 47.9%**
+- **Acurácia máxima de validação: ~47.9%**
 
 ---
 
