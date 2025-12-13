@@ -101,7 +101,7 @@ Com o dataset expandido:
 
 - o modelo foi treinado novamente  
 - as métricas melhoraram significativamente  
-- **Acurácia de validação: ~93%**  
+- **Acurácia de validação: ~92%**  
 - gráficos de loss e accuracy foram gerados  
 
 ---
